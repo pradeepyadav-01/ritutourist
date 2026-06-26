@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="YourTravels - Best Travel Agency in Delhi. Airport Pickup, Wedding, Local Tours, Outstation Trips." />
+  <title>YourTravels – Delhi's Trusted Travel Partner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── MARQUEE BAR ── -->
+  <div class="marquee-bar">
+    <marquee scrolldelay="80" onmouseover="this.stop();" onmouseout="this.start();">
+      📞 24×7 Support: +91-XXXXXXXXXX &nbsp;&nbsp;|&nbsp;&nbsp; ✉ info@yourtravels.com &nbsp;&nbsp;|&nbsp;&nbsp; 🚗 Delhi's Most Trusted Cab &amp; Tour Service &nbsp;&nbsp;|&nbsp;&nbsp; 💬 WhatsApp Us Anytime!
+    </marquee>
+  </div>
+
+  <!-- ── HEADER ── -->
+  <header id="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">✈</span>
+        <div>
+          <span class="logo-name">YourTravels</span>
+          <span class="logo-tag">Delhi, India</span>
+        </div>
+      </div>
+
+      <nav id="navbar">
+        <ul>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#fleet" class="nav-link">Car Fleet</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-cta">
+        <a href="tel:+91XXXXXXXXXX" class="btn-call"><i class="fas fa-phone"></i> Call Now</a>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── HERO / SLIDER ── -->
+  <section id="home" class="hero">
+    <div class="hero-slides">
+      <div class="slide active" style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">
+        <div class="slide-content">
+          <p class="slide-sub">Welcome to YourTravels</p>
+          <h1>Explore India<br><span>in Comfort &amp; Style</span></h1>
+          <p class="slide-desc">Delhi's most trusted travel partner for all your journey needs</p>
+          <a href="#booking" class="btn-hero">Book Your Ride</a>
+        </div>
+      </div>
+      <div class="slide" style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);">
+        <div class="slide-content">
+          <p class="slide-sub">Outstation Trips</p>
+          <h1>Go Anywhere<br><span>Best Rates Guaranteed</span></h1>
+          <p class="slide-desc">Agra, Jaipur, Shimla, Manali — we take you there safely</p>
+          <a href="#booking" class="btn-hero">Plan Your Trip</a>
+        </div>
+      </div>
+      <div class="slide" style="background: linear-gradient(135deg, #141e30, #243b55, #1a3a4a);">
+        <div class="slide-content">
+          <p class="slide-sub">Corporate &amp; Personal</p>
+          <h1>Reliable Rides<br><span>For Every Occasion</span></h1>
+          <p class="slide-desc">Airport transfers, weddings, local duty — one number for all</p>
+          <a href="#booking" class="btn-hero">Get a Quote</a>
+        </div>
+      </div>
+    </div>
+    <button class="slide-prev" onclick="changeSlide(-1)">&#8592;</button>
+    <button class="slide-next" onclick="changeSlide(1)">&#8594;</button>
+    <div class="slide-dots" id="dots"></div>
+  </section>
+
+  <!-- ── BOOKING FORM + ABOUT ── -->
+  <section id="booking" class="about-booking">
+    <div class="container">
+      <div class="row-2col">
+
+        <!-- BOOKING FORM -->
+        <div class="booking-form-wrap">
+          <div class="booking-form">
+            <h3><i class="fas fa-car"></i> Book Your Cab</h3>
+            <form id="bookingForm">
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="bName" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label>Mobile Number *</label>
+                <input type="tel" id="bMobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" required />
+              </div>
+              <div class="form-group">
+                <label>Email Address *</label>
+                <input type="email" id="bEmail" placeholder="your@email.com" required />
+              </div>
+              <div class="form-group">
+                <label>Service Type *</label>
+                <select id="bService" required>
+                  <option value="">Select a service</option>
+                  <option>Airport Pickup &amp; Drop</option>
+                  <option>Local City Tour</option>
+                  <option>Outstation Trip</option>
+                  <option>Wedding &amp; Events</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Date *</label>
+                  <input type="date" id="bDate" required />
+                </div>
+                <div class="form-group">
+                  <label>Time *</label>
+                  <input type="time" id="bTime" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Pickup Location</label>
+                <input type="text" id="bPickup" placeholder="e.g. Connaught Place, Delhi" />
+              </div>
+              <button type="submit" class="btn-book">Book Now <i class="fas fa-arrow-right"></i></button>
+            </form>
+            <div id="bookingMsg" class="booking-msg" style="display:none;"></div>
+          </div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="about-content" id="about">
+          <div class="section-tag">About Us</div>
+          <h2>Delhi's Most <span>Trusted</span> Travel Partner</h2>
+          <p>YourTravels is one of the best travel agencies in Delhi, India. We specialize in providing comfortable, safe, and affordable cab services for all occasions — from daily airport runs to memorable outstation road trips.</p>
+          <p>Our team of experienced drivers and travel consultants ensure every journey is smooth, punctual, and pleasant. We take pride in maintaining our fleet to the highest standards and providing 24×7 customer support.</p>
+
+          <div class="stats-grid">
+            <div class="stat">
+              <span class="stat-num" data-count="5000">0</span><span>+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="8">0</span><span>+</span>
+              <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="25">0</span><span>+</span>
+              <span class="stat-label">Cars in Fleet</span>
+            </div>
+            <div class="stat">
+              <span class="stat-num" data-count="100">0</span><span>%</span>
+              <span class="stat-label">Safe Journeys</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section id="services" class="services-sec">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">What We Offer</div>
+        <h2>Our <span>Services</span></h2>
+        <p>Comprehensive travel solutions for every need</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-plane-arrival"></i></div>
+          <h3>Airport Pickup &amp; Drop</h3>
+          <p>On-time airport transfers to and from all Delhi airports — IGI Terminal 1, 2 &amp; 3. Flight tracking included.</p>
+          <a href="#booking" class="service-link">Book Now →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-rings-wedding"></i></div>
+          <h3>Wedding &amp; Events</h3>
+          <p>Make your special day perfect with our decorated wedding car service. Baraat, reception, honeymoon — we cover it all.</p>
+          <a href="#booking" class="service-link">Book Now →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-city"></i></div>
+          <h3>Local City Tours</h3>
+          <p>Explore Delhi's iconic landmarks with our local duty packages. Half day, full day, or custom hourly packages available.</p>
+          <a href="#booking" class="service-link">Book Now →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-road"></i></div>
+          <h3>Outstation Trips</h3>
+          <p>One-way and round trips to Agra, Jaipur, Shimla, Manali, Haridwar and more. AC cabs at the best prices.</p>
+          <a href="#booking" class="service-link">Book Now →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-briefcase"></i></div>
+          <h3>Corporate Travel</h3>
+          <p>Monthly packages for corporates. Dedicated cab for your office staff with professional drivers and GST invoice.</p>
+          <a href="#booking" class="service-link">Book Now →</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon"><i class="fas fa-cake-candles"></i></div>
+          <h3>Birthday &amp; Occasions</h3>
+          <p>Celebrate birthdays, anniversaries and special occasions with our decorated cab service and surprise arrangements.</p>
+          <a href="#booking" class="service-link">Book Now →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY CHOOSE US ── -->
+  <section class="why-us">
+    <div class="container">
+      <div class="section-header light">
+        <div class="section-tag">Why Us</div>
+        <h2>Why Choose <span>YourTravels</span></h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <i class="fas fa-shield-halved"></i>
+          <h4>100% Safe</h4>
+          <p>All drivers verified, cars GPS tracked and fully insured</p>
+        </div>
+        <div class="why-card">
+          <i class="fas fa-clock"></i>
+          <h4>Always On Time</h4>
+          <p>Punctuality is our promise — we track your flight &amp; plan ahead</p>
+        </div>
+        <div class="why-card">
+          <i class="fas fa-headset"></i>
+          <h4>24×7 Support</h4>
+          <p>Call or WhatsApp us any time — day or night, we're here</p>
+        </div>
+        <div class="why-card">
+          <i class="fas fa-tag"></i>
+          <h4>Best Prices</h4>
+          <p>No hidden charges. Transparent pricing with GST bills provided</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CAR FLEET ── -->
+  <section id="fleet" class="fleet-sec">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Our Fleet</div>
+        <h2>Choose Your <span>Ride</span></h2>
+        <p>Well-maintained, clean and comfortable vehicles for every journey</p>
+      </div>
+      <div class="fleet-grid">
+        <div class="fleet-card">
+          <div class="fleet-icon">🚗</div>
+          <h3>Sedan</h3>
+          <p>Swift Dzire / Honda Amaze</p>
+          <ul>
+            <li><i class="fas fa-users"></i> 4 Passengers</li>
+            <li><i class="fas fa-snowflake"></i> Full AC</li>
+            <li><i class="fas fa-suitcase"></i> 2 Bags</li>
+          </ul>
+          <a href="#booking" class="btn-fleet">Book Sedan</a>
+        </div>
+        <div class="fleet-card featured">
+          <div class="fleet-badge">Most Popular</div>
+          <div class="fleet-icon">🚙</div>
+          <h3>SUV</h3>
+          <p>Innova Crysta / Ertiga</p>
+          <ul>
+            <li><i class="fas fa-users"></i> 6-7 Passengers</li>
+            <li><i class="fas fa-snowflake"></i> Full AC</li>
+            <li><i class="fas fa-suitcase"></i> 4 Bags</li>
+          </ul>
+          <a href="#booking" class="btn-fleet">Book SUV</a>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-icon">🚐</div>
+          <h3>Tempo Traveller</h3>
+          <p>Force Tempo / Mahindra</p>
+          <ul>
+            <li><i class="fas fa-users"></i> 12-17 Passengers</li>
+            <li><i class="fas fa-snowflake"></i> Full AC</li>
+            <li><i class="fas fa-suitcase"></i> Group Luggage</li>
+          </ul>
+          <a href="#booking" class="btn-fleet">Book Tempo</a>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-icon">🚌</div>
+          <h3>Bus / Coach</h3>
+          <p>Volvo / Mini Bus</p>
+          <ul>
+            <li><i class="fas fa-users"></i> 20-45 Passengers</li>
+            <li><i class="fas fa-snowflake"></i> Full AC</li>
+            <li><i class="fas fa-suitcase"></i> Large Group</li>
+          </ul>
+          <a href="#booking" class="btn-fleet">Book Bus</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section id="gallery" class="gallery-sec">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Gallery</div>
+        <h2>Our <span>Moments</span></h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(0)">
+          <div class="gallery-placeholder" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            <i class="fas fa-plane"></i><span>Airport Transfer</span>
+          </div>
+          <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(1)">
+          <div class="gallery-placeholder" style="background:linear-gradient(135deg,#f093fb,#f5576c)">
+            <i class="fas fa-rings-wedding"></i><span>Wedding Service</span>
+          </div>
+          <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(2)">
+          <div class="gallery-placeholder" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">
+            <i class="fas fa-city"></i><span>Delhi Tour</span>
+          </div>
+          <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(3)">
+          <div class="gallery-placeholder" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">
+            <i class="fas fa-mountain"></i><span>Hill Station Trip</span>
+          </div>
+          <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(4)">
+          <div class="gallery-placeholder" style="background:linear-gradient(135deg,#fa709a,#fee140)">
+            <i class="fas fa-car"></i><span>Sedan Fleet</span>
+          </div>
+          <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(5)">
+          <div class="gallery-placeholder" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)">
+            <i class="fas fa-van-shuttle"></i><span>Group Travel</span>
+          </div>
+          <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
+    </div>
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <div class="lightbox-inner" id="lightboxInner"></div>
+      <button class="lightbox-close">✕</button>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Reviews</div>
+        <h2>What Our <span>Clients Say</span></h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Excellent service! Driver was on time for my early morning flight. Car was clean and comfortable. Highly recommend for airport transfers."</p>
+          <div class="client"><div class="client-avatar">R</div><div><strong>Rahul Sharma</strong><span>Delhi</span></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Booked for my daughter's wedding. The decorated car was beautiful and the driver was very professional. Best decision we made!"</p>
+          <div class="client"><div class="client-avatar">P</div><div><strong>Priya Gupta</strong><span>Noida</span></div></div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Used them for Jaipur outstation trip. Fair pricing, no hidden charges, driver knew all the tourist spots. Will book again!"</p>
+          <div class="client"><div class="client-avatar">A</div><div><strong>Amit Verma</strong><span>Gurgaon</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact" class="contact-sec">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Get In Touch</div>
+        <h2>Contact <span>Us</span></h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <strong>Address</strong>
+              <p>Your Address Here, New Delhi – 110001</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div>
+              <strong>Phone (24×7)</strong>
+              <p>+91-XXXXXXXXXX</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <strong>Email</strong>
+              <p>info@yourtravels.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+            <div>
+              <strong>WhatsApp</strong>
+              <p>+91-XXXXXXXXXX</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-fb"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-ig"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-tw"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-yt"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="contact-form-wrap">
+          <form id="contactForm">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" placeholder="Full name" required />
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+91-XXXXXXXXXX" required />
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="Tell us about your travel requirement..." rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Send Message <i class="fas fa-paper-plane"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-logo">
+              <span>✈</span> YourTravels
+            </div>
+            <p>Delhi's most trusted cab and travel service. Available 24×7 for all your travel needs across India.</p>
+            <div class="footer-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#services">Airport Pickup &amp; Drop</a></li>
+              <li><a href="#services">Wedding &amp; Events</a></li>
+              <li><a href="#services">Local City Tours</a></li>
+              <li><a href="#services">Outstation Trips</a></li>
+              <li><a href="#services">Corporate Travel</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#fleet">Car Fleet</a></li>
+              <li><a href="#gallery">Gallery</a></li>
+              <li><a href="#contact">Contact Us</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact Us</h4>
+            <div class="footer-contact">
+              <p><i class="fas fa-map-marker-alt"></i> Your Address, New Delhi – 110001</p>
+              <p><i class="fas fa-phone"></i> +91-XXXXXXXXXX</p>
+              <p><i class="fas fa-envelope"></i> info@yourtravels.com</p>
+              <p><i class="fab fa-whatsapp"></i> WhatsApp: +91-XXXXXXXXXX</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2025 YourTravels. All rights reserved. | <a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Cancellation Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── FLOATING BUTTONS ── -->
+  <a href="https://api.whatsapp.com/send/?phone=91XXXXXXXXXX" target="_blank" class="float-whatsapp" title="WhatsApp Us">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <a href="tel:+91XXXXXXXXXX" class="float-call" title="Call Us">
+    <i class="fas fa-phone"></i>
+  </a>
+  <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ── STICKY SOCIAL ── -->
+  <div class="sticky-social">
+    <a href="#" class="s-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="#" class="s-ig"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="#" class="s-yt"><i class="fab fa-youtube"></i> YouTube</a>
+    <a href="#" class="s-tw"><i class="fab fa-twitter"></i> Twitter</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
