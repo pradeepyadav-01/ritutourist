@@ -62,7 +62,9 @@ export default function BookingForm({ onSuccess }) {
 
     try {
       // 1. Save booking to backend
-      await axios.post('/api/bookings', form);
+      const API_URL = import.meta.env.VITE_API_URL || '/api';
+// ...
+await axios.post(`${API_URL}/bookings`, form);
 
       // 2. Send email to owner via EmailJS
       //    Set up your EmailJS template with these variables:
