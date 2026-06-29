@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import BookingForm from './components/BookingForm';
+import logo from './assets/logo.jpeg';
 
 const COMPANY = {
   name: 'Ritu Tourist Taxi Service',
@@ -70,7 +71,7 @@ export default function App() {
         </div>
         <div className="header-main">
           <a href="#" className="logo">
-            <div className="logo-icon">🚗</div>
+            <div className="logo-icon"><img src={logo} alt={`${COMPANY.name} logo`} className="logo-icon" /></div>
             <div className="logo-text">
               <div className="logo-name">{COMPANY.name}</div>
               <div className="logo-tagline">{COMPANY.tagline}</div>
