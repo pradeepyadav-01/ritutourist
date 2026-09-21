@@ -1,0 +1,22 @@
+EmailJS template — paste these into your template (Email Templates → Create New Template)
+
+To Email:   {{to_email}}          (or type ritu.tourist.taxi@gmail.com)
+From Name:  Ritu Tourist Website
+Reply To:   {{reply_to}}
+Subject:    New cab booking – {{from_name}} ({{service}})
+
+Content (switch the editor to "Code" view and paste):
+
+<div style="font-family:Arial,sans-serif;font-size:15px;color:#111">
+  <h2>🚗 New Cab Booking</h2>
+  <table cellpadding="6" style="border-collapse:collapse">
+    <tr><td><b>Name</b></td><td>{{from_name}}</td></tr>
+    <tr><td><b>Mobile</b></td><td>{{mobile}}</td></tr>
+    <tr><td><b>Email</b></td><td>{{email}}</td></tr>
+    <tr><td><b>Service</b></td><td>{{service}}</td></tr>
+    <tr><td><b>Car</b></td><td>{{car}}</td></tr>
+    <tr><td><b>Date</b></td><td>{{date}} at {{time}}</td></tr>
+    <tr><td><b>Pickup</b></td><td>{{pickup}}</td></tr>
+    <tr><td><b>Drop</b></td><td>{{drop}}</td></tr>
+  </table>
+</div>
