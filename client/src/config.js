@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────────────────────
 export const COMPANY = {
   name: 'Ritu Tourist Taxi Service',
-  tagline: "Delhi's Trusted Cab Service",
+  tagline: "Your Journey, Our Responsibility",
   phone: '+91 75684 89188',        // shown on the site
   phoneTel: '+917568489188',       // used for tap-to-call links
   whatsapp: '917568489188',        // digits only, with country code (no + or spaces)
