@@ -295,7 +295,8 @@ export default function App() {
                 <div className="logo-tagline">{COMPANY.tagline}</div>
               </div>
             </a>
-            <p>Your trusted travel partner in Delhi NCR. Professional drivers, clean vehicles, and always on time — that's our promise.</p>
+            {/* <p>Your trusted travel partner in Delhi NCR. Professional drivers, clean vehicles, and always on time — that's our promise.</p> */}
+            <p>RE-307, Ridgewood Estate, DLF phase IV ,Gurgaon Haryana</p>
             <div className="footer-socials">
               <a href={COMPANY.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
             </div>
