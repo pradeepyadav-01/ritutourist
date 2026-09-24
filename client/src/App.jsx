@@ -182,7 +182,7 @@ export default function App() {
                 <div className="counter-label">Cars in Fleet</div>
               </div>
               <div className="counter-card">
-                <div className="counter-num">8+</div>
+                <div className="counter-num">20+</div>
                 <div className="counter-label">Years in Delhi</div>
               </div>
               <div className="counter-card" style={{ background: 'var(--gold)', color: 'var(--navy)' }}>
