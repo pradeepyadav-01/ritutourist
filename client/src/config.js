@@ -4,7 +4,7 @@
 export const COMPANY = {
   name: 'Ritu Tourist Taxi Service',
   tagline: "Your Journey, Our Responsibility",
-  phone: '+91 9818788658',        // shown on the site
+  phone: '+91 9818788658, +91 7568489188',        // shown on the site
   phoneTel: '+91 9818788658',       // used for tap-to-call links
   whatsapp: '917568489188',        // digits only, with country code (no + or spaces)
   email: 'ritu.tourist.taxi@gmail.com',
