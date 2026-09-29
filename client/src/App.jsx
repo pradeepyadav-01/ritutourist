@@ -13,11 +13,11 @@ const SERVICES = [
 
 const FLEET = [
   { emoji: '🚗', name: 'Sedan', model: 'Swift Dzire / Honda Amaze', desc: 'Ideal for 4 passengers. Comfortable for city rides and short trips.', tags: ['AC', '4 Seats', 'City & Airport'] },
-  { emoji: '🚙', name: 'SUV', model: 'Innova Crysta / Ertiga', desc: 'Perfect for families and groups. Spacious with extra luggage room.', tags: ['AC', '6-7 Seats', 'Outstation'] },
+  { emoji: '🚙', name: 'SUV', model: 'Ertiga / Kia Carens', desc: 'Perfect for families and groups. Spacious with extra luggage room.', tags: ['AC', '6-7 Seats', 'Outstation'] },
 ];
 
 const TESTIMONIALS = [
-  { name: 'Rahul Sharma', location: 'Connaught Place', text: 'Booked for airport drop at 4 AM and the driver was 10 minutes early. Very professional and the car was clean. Will always use SwiftRide for my travels.', rating: 5 },
+  { name: 'Rahul Sharma', location: 'Connaught Place', text: 'Booked for airport drop at 4 AM and the driver was 10 minutes early. Very professional and the car was clean. Will always use Ritu Tourist Taxi services.', rating: 5 },
   { name: 'Priya Gupta', location: 'South Delhi', text: 'Used them for our wedding car fleet. Everything was decorated beautifully and all drivers were on time. The whole experience was stress-free!', rating: 5 },
   { name: 'Amit Verma', location: 'Noida', text: 'Did a Jaipur trip with family in an Innova. Driver was knowledgeable about routes and very helpful. Pricing was also very fair compared to others.', rating: 5 },
 ];
@@ -296,7 +296,11 @@ export default function App() {
               </div>
             </a>
             {/* <p>Your trusted travel partner in Delhi NCR. Professional drivers, clean vehicles, and always on time — that's our promise.</p> */}
-            <p>RE-307, Ridgewood Estate, DLF phase IV ,Gurgaon Haryana</p>
+            {/* <p>RE-307, Ridgewood Estate, DLF phase IV ,Gurgaon Haryana</p> */}
+            <p>Our ambitious venture “Ritu Tourist Taxi Service (RTTS)” is a professionally managed transportation company dedicated to taking care of its esteemed clients. Based in Gurgaon, Haryana, we provide reliable and comfortable transportation solutions across Gurgaon, Delhi NCR and other locations on request.
+Ritu Tourist Taxi Service is pleased to introduce itself as a Total Transportation Solution Company in the field of corporate taxi rental and travel services. We are capable of handling small to large-scale transportation requirements for BPOs, KPOs, Call Centers, MNCs and other corporate organizations, in accordance with their operational requirements and service standards.
+With a focus on safety, punctuality, comfort and professional service, RTTS provides solutions including corporate employee transportation, airport transfers, local and outstation taxi services, hotel transfers, business travel and long-term corporate car rental services.
+Our commitment is simple — “Your Journey, Our Responsibility.”</p>
             <div className="footer-socials">
               <a href={COMPANY.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
             </div>
@@ -322,6 +326,7 @@ export default function App() {
           </div>
           <div className="footer-col">
             <h4>Contact</h4>
+            <p>RE-307, Ridgewood Estate, DLF phase IV ,Gurgaon Haryana</p>
             <div className="footer-contact-item"><i className="fas fa-phone"></i><span>{COMPANY.phone}</span></div>
             <div className="footer-contact-item"><i className="fas fa-envelope"></i><span>{COMPANY.email}</span></div>
           </div>
