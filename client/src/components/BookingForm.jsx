@@ -12,7 +12,8 @@ const SERVICES = [
 
 const CARS = [
   { value: 'sedan', label: '🚗 Sedan (Swift Dzire / Amaze) — 4 Seats' },
-  { value: 'suv',   label: '🚙 SUV (Ertiga / kia Carens) — 6-7 Seats' },
+  { value: 'suv',   label: '🚙 SUV (Ertiga / Kia Carens) — 6-7 Seats' },
+  { value: 'xuv',   label: '🚐 XUV / Innova Crysta — 6-7 Seats' },
 ];
 
 const today = () => new Date().toISOString().split('T')[0];
@@ -23,7 +24,7 @@ const withTimeout = (p, ms) =>
 
 const EMPTY = {
   name: '', mobile: '', email: '', service: '',
-  car: '', date: '', time: '', pickup: '', drop: '',
+  car: '', fromDate: '', toDate: '', time: '', pickup: '', drop: '',
   website: '', // honeypot: real visitors never see or fill this
 };
 
@@ -36,15 +37,17 @@ export default function BookingForm({ onSuccess }) {
 
   function validate() {
     const e = {};
-    if (!form.name.trim())                          e.name    = 'Name is required';
-    if (!/^[6-9][0-9]{9}$/.test(form.mobile))       e.mobile  = 'Enter a valid 10-digit mobile number';
-    if (!/^\S+@\S+\.\S+$/.test(form.email))         e.email   = 'Enter a valid email';
-    if (!form.service)                              e.service = 'Please select a service';
-    if (!form.car)                                  e.car     = 'Please select a car type';
-    if (!form.date)                                 e.date    = 'Date is required';
-    else if (form.date < today())                   e.date    = 'Date cannot be in the past';
-    if (!form.time)                                 e.time    = 'Time is required';
-    if (!form.pickup.trim())                        e.pickup  = 'Pickup location is required';
+    if (!form.name.trim())                          e.name     = 'Name is required';
+    if (!/^[6-9][0-9]{9}$/.test(form.mobile))       e.mobile   = 'Enter a valid 10-digit mobile number';
+    if (!/^\S+@\S+\.\S+$/.test(form.email))         e.email    = 'Enter a valid email';
+    if (!form.service)                              e.service  = 'Please select a service';
+    if (!form.car)                                  e.car      = 'Please select a car type';
+    if (!form.fromDate)                             e.fromDate = 'From date is required';
+    else if (form.fromDate < today())               e.fromDate = 'From date cannot be in the past';
+    if (!form.toDate)                               e.toDate   = 'To date is required';
+    else if (form.toDate < form.fromDate)           e.toDate   = 'To date cannot be before the from date';
+    if (!form.time)                                 e.time     = 'Time is required';
+    if (!form.pickup.trim())                        e.pickup   = 'Pickup location is required';
     return e;
   }
 
@@ -67,20 +70,23 @@ export default function BookingForm({ onSuccess }) {
     setApiError('');
 
     // Open the WhatsApp tab right now (inside the tap), so browsers don't block it.
-    // We point it at the prefilled chat once the email has been sent.
     const waWindow = window.open('', '_blank');
 
     const data = {
-      name:    clean(form.name, 60),
-      mobile:  form.mobile,
-      email:   clean(form.email, 100),
-      service: form.service,
-      car:     form.car,
-      date:    form.date,
-      time:    form.time,
-      pickup:  clean(form.pickup, 150),
-      drop:    clean(form.drop, 150),
+      name:     clean(form.name, 60),
+      mobile:   form.mobile,
+      email:    clean(form.email, 100),
+      service:  form.service,
+      car:      form.car,
+      fromDate: form.fromDate,
+      toDate:   form.toDate,
+      time:     form.time,
+      pickup:   clean(form.pickup, 150),
+      drop:     clean(form.drop, 150),
     };
+
+    const sameDay = data.fromDate === data.toDate;
+    const tripDates = sameDay ? data.fromDate : `${data.fromDate} to ${data.toDate}`;
 
     const waText =
       `🚗 *New Cab Booking*\n\n` +
@@ -89,7 +95,8 @@ export default function BookingForm({ onSuccess }) {
       `📧 Email: ${data.email}\n` +
       `🚌 Car: ${carLabel(data.car)}\n` +
       `🛎️ Service: ${data.service}\n` +
-      `📅 Date: ${data.date} at ${data.time}\n` +
+      `📅 Trip Dates: ${tripDates}\n` +
+      `⏰ Pickup Time: ${data.time}\n` +
       `📍 Pickup: ${data.pickup}\n` +
       `📍 Drop: ${data.drop || 'Not specified'}\n\n` +
       `Please confirm this booking.`;
@@ -104,17 +111,18 @@ export default function BookingForm({ onSuccess }) {
           EMAILJS.serviceId,
           EMAILJS.templateId,
           {
-            to_email:  COMPANY.email,
-            reply_to:  data.email,
-            from_name: data.name,
-            mobile:    data.mobile,
-            email:     data.email,
-            service:   data.service,
-            car:       carLabel(data.car),
-            date:      data.date,
-            time:      data.time,
-            pickup:    data.pickup,
-            drop:      data.drop || 'Not specified',
+            to_email:   COMPANY.email,
+            reply_to:   data.email,
+            from_name:  data.name,
+            mobile:     data.mobile,
+            email:      data.email,
+            service:    data.service,
+            car:        carLabel(data.car),
+            from_date:  data.fromDate,
+            to_date:    data.toDate,
+            time:       data.time,
+            pickup:     data.pickup,
+            drop:       data.drop || 'Not specified',
           },
           { publicKey: EMAILJS.publicKey }
         ), 10000));
@@ -149,12 +157,17 @@ export default function BookingForm({ onSuccess }) {
 
   function onChange(e) {
     const { name, value } = e.target;
-    setForm(p => ({ ...p, [name]: value }));
+    setForm(p => {
+      const next = { ...p, [name]: value };
+      // keep the "to date" from landing before the "from date"
+      if (name === 'fromDate' && next.toDate && next.toDate < value) next.toDate = value;
+      return next;
+    });
     setErrors(p => ({ ...p, [name]: '' }));
   }
 
   return (
-    <div className="booking-card">
+    <div className={`booking-card ${loading ? 'is-booking' : ''}`}>
       <h3>🚗 Book Your Cab</h3>
       <p className="subtitle">Quick booking — we confirm by call or WhatsApp</p>
 
@@ -208,15 +221,21 @@ export default function BookingForm({ onSuccess }) {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Date *</label>
-            <input name="date" type="date" value={form.date} onChange={onChange} min={today()} />
-            {errors.date && <p className="form-error">{errors.date}</p>}
+            <label>From Date *</label>
+            <input name="fromDate" type="date" value={form.fromDate} onChange={onChange} min={today()} />
+            {errors.fromDate && <p className="form-error">{errors.fromDate}</p>}
           </div>
           <div className="form-group">
-            <label>Time *</label>
-            <input name="time" type="time" value={form.time} onChange={onChange} />
-            {errors.time && <p className="form-error">{errors.time}</p>}
+            <label>To Date *</label>
+            <input name="toDate" type="date" value={form.toDate} onChange={onChange} min={form.fromDate || today()} />
+            {errors.toDate && <p className="form-error">{errors.toDate}</p>}
           </div>
+        </div>
+
+        <div className="form-group">
+          <label>Pickup Time *</label>
+          <input name="time" type="time" value={form.time} onChange={onChange} />
+          {errors.time && <p className="form-error">{errors.time}</p>}
         </div>
 
         <div className="form-group">
@@ -232,7 +251,7 @@ export default function BookingForm({ onSuccess }) {
 
         <button type="submit" className="submit-btn" disabled={loading}>
           {loading
-            ? <><i className="fas fa-spinner fa-spin"></i> Sending...</>
+            ? <span className="btn-road"><span className="btn-road-car">🚕</span> Booking your ride...</span>
             : <><i className="fab fa-whatsapp"></i> Book & Send on WhatsApp</>
           }
         </button>

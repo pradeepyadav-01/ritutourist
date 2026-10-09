@@ -15,7 +15,8 @@ Content (switch the editor to "Code" view and paste):
     <tr><td><b>Email</b></td><td>{{email}}</td></tr>
     <tr><td><b>Service</b></td><td>{{service}}</td></tr>
     <tr><td><b>Car</b></td><td>{{car}}</td></tr>
-    <tr><td><b>Date</b></td><td>{{date}} at {{time}}</td></tr>
+    <tr><td><b>Trip Dates</b></td><td>{{from_date}} to {{to_date}}</td></tr>
+    <tr><td><b>Pickup Time</b></td><td>{{time}}</td></tr>
     <tr><td><b>Pickup</b></td><td>{{pickup}}</td></tr>
     <tr><td><b>Drop</b></td><td>{{drop}}</td></tr>
   </table>

@@ -3,6 +3,7 @@
 // ─────────────────────────────────────────────────────────────
 export const COMPANY = {
   name: 'Ritu Tourist Taxi Service',
+  proprietor: 'Narendra Singh',
   tagline: "Your Journey, Our Responsibility",
   phone: '+91 9818788658, +91 7568489188',        // shown on the site
   phoneTel: '+91 9818788658',       // used for tap-to-call links

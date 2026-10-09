@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import BookingForm from './components/BookingForm';
 import logo from './assets/logo.jpeg';
+import sedanPhoto from './assets/fleet/sedan.jpg';
+import suvPhoto from './assets/fleet/suv.jpg';
+import xuvPhoto from './assets/fleet/xuv.jpg';
 import { COMPANY } from './config';
 
 
@@ -12,8 +15,9 @@ const SERVICES = [
 ];
 
 const FLEET = [
-  { emoji: '🚗', name: 'Sedan', model: 'Swift Dzire / Honda Amaze', desc: 'Ideal for 4 passengers. Comfortable for city rides and short trips.', tags: ['AC', '4 Seats', 'City & Airport'] },
-  { emoji: '🚙', name: 'SUV', model: 'Ertiga / Kia Carens', desc: 'Perfect for families and groups. Spacious with extra luggage room.', tags: ['AC', '6-7 Seats', 'Outstation'] },
+  { photo: sedanPhoto, name: 'Sedan', model: 'Swift Dzire / Honda Amaze', desc: 'Ideal for 4 passengers. Comfortable for city rides and short trips.', tags: ['AC', '4 Seats', 'City & Airport'] },
+  { photo: suvPhoto,   name: 'SUV', model: 'Ertiga / Kia Carens', desc: 'Perfect for families and groups. Spacious with extra luggage room.', tags: ['AC', '6-7 Seats', 'Outstation'], badge: 'Popular' },
+  { photo: xuvPhoto,   name: 'XUV / Innova Crysta', model: 'Mahindra XUV700 / Toyota Innova Crysta', desc: 'Our most premium ride. Extra legroom and luggage space — built for long outstation trips.', tags: ['AC', '6-7 Seats', 'Long Trips'], badge: 'Premium' },
 ];
 
 const TESTIMONIALS = [
@@ -200,12 +204,15 @@ export default function App() {
           <div className="section-title">
             <span className="label">Our Vehicles</span>
             <h2>Choose Your Car</h2>
-            <p>From comfortable sedans to spacious SUVs — we have the right vehicle for every group size and trip type.</p>
+            <p>From comfortable sedans to a premium XUV / Innova Crysta — we have the right vehicle for every group size and trip type.</p>
           </div>
           <div className="fleet-grid">
             {FLEET.map(car => (
               <div className="fleet-card" key={car.name}>
-                <div className="fleet-img">{car.emoji}</div>
+                <div className="fleet-poster">
+                  {car.badge && <span className="fleet-badge">{car.badge}</span>}
+                  <img src={car.photo} alt={`${car.name} — ${car.model}`} className="fleet-photo" loading="lazy" />
+                </div>
                 <div className="fleet-info">
                   <h3>{car.name}</h3>
                   <p style={{ fontStyle: 'italic', fontSize: '12px', color: 'var(--gold)', fontWeight: 600, marginBottom: '6px' }}>{car.model}</p>
@@ -248,11 +255,14 @@ export default function App() {
 
       {/* Contact */}
       <section className="contact" id="contact">
+        <div className="contact-blob contact-blob-a" aria-hidden="true"></div>
+        <div className="contact-blob contact-blob-b" aria-hidden="true"></div>
         <div className="container">
           <div className="section-title">
             <span className="label">Get In Touch</span>
             <h2>Contact Us</h2>
             <p>Available 24x7 — call, WhatsApp or email us anytime.</p>
+            <span className="live-badge"><span className="live-dot"></span> Online now — usually replies in minutes</span>
           </div>
           <div className="contact-cards-row">
             <a href={`tel:${COMPANY.phoneTel}`} className="contact-action-card">
@@ -295,8 +305,6 @@ export default function App() {
                 <div className="logo-tagline">{COMPANY.tagline}</div>
               </div>
             </a>
-            {/* <p>Your trusted travel partner in Delhi NCR. Professional drivers, clean vehicles, and always on time — that's our promise.</p> */}
-            {/* <p>RE-307, Ridgewood Estate, DLF phase IV ,Gurgaon Haryana</p> */}
             <p>Our ambitious venture “Ritu Tourist Taxi Service (RTTS)” is a professionally managed transportation company dedicated to taking care of its esteemed clients. Based in Gurgaon, Haryana, we provide reliable and comfortable transportation solutions across Gurgaon, Delhi NCR and other locations on request.
 Ritu Tourist Taxi Service is pleased to introduce itself as a Total Transportation Solution Company in the field of corporate taxi rental and travel services. We are capable of handling small to large-scale transportation requirements for BPOs, KPOs, Call Centers, MNCs and other corporate organizations, in accordance with their operational requirements and service standards.
 With a focus on safety, punctuality, comfort and professional service, RTTS provides solutions including corporate employee transportation, airport transfers, local and outstation taxi services, hotel transfers, business travel and long-term corporate car rental services.
@@ -326,16 +334,16 @@ Our commitment is simple — “Your Journey, Our Responsibility.”</p>
           </div>
           <div className="footer-col">
             <h4>Contact</h4>
-            <p>RE-307, Ridgewood Estate, DLF phase IV ,Gurgaon Haryana</p>
+            <p className="footer-address">RE-307, Ridgewood Estate, DLF phase IV, Gurgaon, Haryana</p>
             <div className="footer-contact-item"><i className="fas fa-phone"></i><span>{COMPANY.phone}</span></div>
             <div className="footer-contact-item"><i className="fas fa-envelope"></i><span>{COMPANY.email}</span></div>
           </div>
         </div>
-        <div className="footer-bottom" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <p>© {new Date().getFullYear()} {COMPANY.name}. All rights reserved.</p>
-          <div style={{ display: 'flex', gap: '16px' }}>
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} {COMPANY.name}. Proprietor: {COMPANY.proprietor}. All rights reserved.</p>
+          <div className="footer-legal-links">
             <a href="#">Privacy Policy</a>
-            <a href="#">Terms & Conditions</a>
+            <a href="#">Terms &amp; Conditions</a>
             <a href="#">Cancellation Policy</a>
           </div>
         </div>
@@ -358,6 +366,9 @@ Our commitment is simple — “Your Journey, Our Responsibility.”</p>
       {showSuccess && (
         <div className="modal-overlay" onClick={() => setShowSuccess(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
+            <div className="confetti" aria-hidden="true">
+              {Array.from({ length: 18 }).map((_, i) => <span key={i} className={`confetti-piece c${i % 6}`} />)}
+            </div>
             <i className="fas fa-check-circle"></i>
             <h3>Request Received!</h3>
             <p>Thank you <strong>{bookedName}</strong>! Your booking request is ready. Please tap <strong>Send</strong> in WhatsApp so we receive it — we'll confirm your cab shortly.</p>

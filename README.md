@@ -1,5 +1,15 @@
 # Ritu Tourist Taxi Service — website
 
+## Latest update
+- Added a third vehicle option: **XUV / Innova Crysta** (form, fleet section, email and WhatsApp message).
+- The booking date is now a **From Date** and **To Date** range instead of one date.
+- **⚠️ If you already set up your EmailJS template:** open it and replace the `{{date}}` row with `{{from_date}}` and `{{to_date}}` — otherwise trip dates won't show in the email. The updated template is in `emailjs-template.txt`.
+- Car Fleet cards now use original illustrated vehicle art (not stock photos — see note below) with a "Popular" / "Premium" badge and a subtle shine animation.
+- Booking button shows an animated car driving along a road while sending; the confirmation popup has a short confetti burst.
+- Contact section got a live-status badge and soft background accents.
+- Footer columns are now evenly spaced with a consistent color, plus the proprietor's name in the copyright line.
+
+
 React (Vite) website in `client/`, small Express API in `server/` (optional).
 
 ## What the booking form does
@@ -59,6 +69,13 @@ Vercel settings: **Root Directory = `client`**. Render settings: **Root Director
 - CORS allows only your website; security headers on both Vercel (`client/vercel.json`) and Render (helmet).
 - No customer data is echoed back by the API or committed to Git.
 - Turn on **2-step verification** for GitHub, Vercel, Render, EmailJS and Gmail — stolen logins are the most common way small sites lose data.
+
+## About the car images
+The Car Fleet section uses original drawn vehicle illustrations, not photos — a real,
+specific model's photo can't be reused without the rights holder's permission, so these
+are safe to publish. To use real photos of your own cars instead: put a `.jpg` in
+`client/src/assets/`, import it in `client/src/App.jsx`, and swap `<car.Art />` for
+`<img src={yourPhoto} className="fleet-illustration" alt={car.name} />` for that entry.
 
 ## Before you go live
 - The **customer reviews** in `client/src/App.jsx` (`TESTIMONIALS`) are sample text (one even names another company). Replace them with real reviews or delete the section.

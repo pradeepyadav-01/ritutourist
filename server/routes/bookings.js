@@ -4,7 +4,7 @@ const { read, write } = require('../data/store');
 const router = express.Router();
 
 const SERVICES = ['Airport Pickup & Drop', 'Local City Tour', 'Wedding & Events', 'Outstation Trip'];
-const CARS = ['sedan', 'suv'];
+const CARS = ['sedan', 'suv', 'xuv'];
 
 const clean = (v, max) => String(v ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
 const sha = (s) => crypto.createHash('sha256').update(String(s)).digest();
@@ -32,9 +32,10 @@ router.post('/', (req, res) => {
     mobile:  clean(body.mobile, 10),
     email:   clean(body.email, 100),
     service: clean(body.service, 40),
-    car:     clean(body.car, 10),
-    date:    clean(body.date, 10),
-    time:    clean(body.time, 5),
+    car:      clean(body.car, 10),
+    fromDate: clean(body.fromDate, 10),
+    toDate:   clean(body.toDate, 10),
+    time:     clean(body.time, 5),
     pickup:  clean(body.pickup, 150),
     drop:    clean(body.drop, 150),
   };
@@ -45,8 +46,11 @@ router.post('/', (req, res) => {
   if (!/^\S+@\S+\.\S+$/.test(b.email)) errors.push('Valid email is required');
   if (!SERVICES.includes(b.service)) errors.push('Valid service type is required');
   if (!CARS.includes(b.car)) errors.push('Valid car type is required');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(b.date) || Number.isNaN(Date.parse(b.date))) errors.push('Valid date is required');
-  else if (new Date(b.date) < new Date(new Date().toDateString())) errors.push('Date cannot be in the past');
+  const validDate = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d) && !Number.isNaN(Date.parse(d));
+  if (!validDate(b.fromDate)) errors.push('Valid from date is required');
+  else if (new Date(b.fromDate) < new Date(new Date().toDateString())) errors.push('From date cannot be in the past');
+  if (!validDate(b.toDate)) errors.push('Valid to date is required');
+  else if (validDate(b.fromDate) && new Date(b.toDate) < new Date(b.fromDate)) errors.push('To date cannot be before the from date');
   if (!/^\d{2}:\d{2}$/.test(b.time)) errors.push('Valid time is required');
   if (!b.pickup) errors.push('Pickup location is required');
 
