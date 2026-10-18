@@ -1,13 +1,14 @@
 # Ritu Tourist Taxi Service — website
 
 ## Latest update
-- Added a third vehicle option: **XUV / Innova Crysta** (form, fleet section, email and WhatsApp message).
-- The booking date is now a **From Date** and **To Date** range instead of one date.
-- **⚠️ If you already set up your EmailJS template:** open it and replace the `{{date}}` row with `{{from_date}}` and `{{to_date}}` — otherwise trip dates won't show in the email. The updated template is in `emailjs-template.txt`.
-- Car Fleet cards now use original illustrated vehicle art (not stock photos — see note below) with a "Popular" / "Premium" badge and a subtle shine animation.
-- Booking button shows an animated car driving along a road while sending; the confirmation popup has a short confetti burst.
-- Contact section got a live-status badge and soft background accents.
-- Footer columns are now evenly spaced with a consistent color, plus the proprietor's name in the copyright line.
+- **Light/dark mode** — a toggle switch in the top bar (always visible, desktop and mobile) flips the whole site between light and dark. The choice is remembered on the visitor's device for their next visit.
+- Third vehicle option is now simply **Innova Crysta** (dropped the Mahindra XUV700 photo and naming) with a real photo in the fleet card, form, and WhatsApp/email messages.
+- The About text in the footer is now three short sentences instead of four paragraphs.
+- "Delhi" was changed to "Delhi NCR" throughout the site's copy (hero, badges, counters, headings) to match your actual service area.
+- **Mobile navigation** — added a hamburger menu; previously the nav links just disappeared below 900px with no way to open them. Also fixed a bug where tapping a link in that menu could land you one section short of where you tapped.
+- Full responsive pass: tested at 360–1440px wide with zero horizontal-scroll bugs, tighter spacing on small phones, and the booking form's date fields stack to one-per-row on narrow screens instead of being cramped side by side.
+- The booking date is a **From Date** / **To Date** range. Car Fleet cards have a "Popular"/"Premium" badge. Booking button shows a car-driving-along-a-road animation while sending; the confirmation popup has a short confetti burst. Footer columns are evenly spaced with the proprietor's name in the copyright line.
+- **⚠️ If you already set up your EmailJS template:** it needs `{{from_date}}` and `{{to_date}}` instead of `{{date}}` — see `emailjs-template.txt`.
 
 
 React (Vite) website in `client/`, small Express API in `server/` (optional).
@@ -71,11 +72,25 @@ Vercel settings: **Root Directory = `client`**. Render settings: **Root Director
 - Turn on **2-step verification** for GitHub, Vercel, Render, EmailJS and Gmail — stolen logins are the most common way small sites lose data.
 
 ## About the car images
-The Car Fleet section uses original drawn vehicle illustrations, not photos — a real,
-specific model's photo can't be reused without the rights holder's permission, so these
-are safe to publish. To use real photos of your own cars instead: put a `.jpg` in
-`client/src/assets/`, import it in `client/src/App.jsx`, and swap `<car.Art />` for
-`<img src={yourPhoto} className="fleet-illustration" alt={car.name} />` for that entry.
+The Car Fleet section currently uses photos that were supplied for this project (not
+taken by you) — they look like official manufacturer/dealer marketing photography
+(Maruti Suzuki, Toyota). Those companies own the rights to that photography, and using
+it on a commercial site without a license carries some copyright risk — likely small for
+a local business site, but real. We are not lawyers, so we can't tell you exactly how
+much risk that is for your situation. The safest long-term option is to swap in your own
+photos of your actual vehicles.
+
+To replace a car photo: put a `.jpg` in `client/src/assets/fleet/`, import it near the
+top of `client/src/App.jsx` (e.g. `import myPhoto from './assets/fleet/myphoto.jpg';`),
+and use it as that entry's `photo` value in the `FLEET` array.
+
+## About the theme toggle
+The switch in the top bar sets `data-theme="dark"` or `"light"` on the page and saves the
+choice in the visitor's browser (`localStorage`), so it stays the way they left it next
+visit. It also respects a first-time visitor's OS-level dark mode preference. All colors
+are CSS variables in `client/src/index.css` (`--bg`, `--surface`, `--surface-alt`,
+`--text`, `--text-muted`, `--border`) — adjust the dark values under
+`:root[data-theme="dark"]` near the top of that file if you want a different look.
 
 ## Before you go live
 - The **customer reviews** in `client/src/App.jsx` (`TESTIMONIALS`) are sample text (one even names another company). Replace them with real reviews or delete the section.

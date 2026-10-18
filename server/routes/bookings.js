@@ -4,7 +4,7 @@ const { read, write } = require('../data/store');
 const router = express.Router();
 
 const SERVICES = ['Airport Pickup & Drop', 'Local City Tour', 'Wedding & Events', 'Outstation Trip'];
-const CARS = ['sedan', 'suv', 'xuv'];
+const CARS = ['sedan', 'suv', 'innova'];
 
 const clean = (v, max) => String(v ?? '').replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, max);
 const sha = (s) => crypto.createHash('sha256').update(String(s)).digest();

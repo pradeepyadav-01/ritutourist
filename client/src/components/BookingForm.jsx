@@ -13,7 +13,7 @@ const SERVICES = [
 const CARS = [
   { value: 'sedan', label: '🚗 Sedan (Swift Dzire / Amaze) — 4 Seats' },
   { value: 'suv',   label: '🚙 SUV (Ertiga / Kia Carens) — 6-7 Seats' },
-  { value: 'xuv',   label: '🚐 XUV / Innova Crysta — 6-7 Seats' },
+  { value: 'innova', label: '🚐 Innova Crysta — 6-7 Seats' },
 ];
 
 const today = () => new Date().toISOString().split('T')[0];

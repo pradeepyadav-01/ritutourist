@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BookingForm from './components/BookingForm';
 import logo from './assets/logo.jpeg';
 import sedanPhoto from './assets/fleet/sedan.jpg';
 import suvPhoto from './assets/fleet/suv.jpg';
-import xuvPhoto from './assets/fleet/xuv.jpg';
+import innovaPhoto from './assets/fleet/innova.jpg';
 import { COMPANY } from './config';
 
 
 const SERVICES = [
   { icon: '✈️', title: 'Airport Pickup & Drop', desc: 'On-time guaranteed pickup and drop to all Delhi NCR airports. Flight tracking included.' },
-  { icon: '🏙️', title: 'Local City Tours', desc: 'Explore Delhi\'s iconic monuments, markets and hidden gems with our expert local drivers.' },
+  { icon: '🏙️', title: 'Local City Tours', desc: "Explore Delhi NCR's iconic monuments, markets and hidden gems with our expert local drivers." },
   { icon: '💍', title: 'Wedding & Events', desc: 'Make your special day memorable with our premium decorated car service for weddings and events.' },
   { icon: '🗺️', title: 'Outstation Trips', desc: 'Comfortable long-distance travel to Agra, Jaipur, Shimla, Manali and all major destinations.' },
 ];
@@ -17,7 +17,7 @@ const SERVICES = [
 const FLEET = [
   { photo: sedanPhoto, name: 'Sedan', model: 'Swift Dzire / Honda Amaze', desc: 'Ideal for 4 passengers. Comfortable for city rides and short trips.', tags: ['AC', '4 Seats', 'City & Airport'] },
   { photo: suvPhoto,   name: 'SUV', model: 'Ertiga / Kia Carens', desc: 'Perfect for families and groups. Spacious with extra luggage room.', tags: ['AC', '6-7 Seats', 'Outstation'], badge: 'Popular' },
-  { photo: xuvPhoto,   name: 'XUV / Innova Crysta', model: 'Mahindra XUV700 / Toyota Innova Crysta', desc: 'Our most premium ride. Extra legroom and luggage space — built for long outstation trips.', tags: ['AC', '6-7 Seats', 'Long Trips'], badge: 'Premium' },
+  { photo: innovaPhoto, name: 'Innova Crysta', model: 'Toyota Innova Crysta', desc: 'Our most premium ride. Extra legroom and luggage space — built for long outstation trips.', tags: ['AC', '6-7 Seats', 'Long Trips'], badge: 'Premium' },
 ];
 
 const TESTIMONIALS = [
@@ -26,11 +26,55 @@ const TESTIMONIALS = [
   { name: 'Amit Verma', location: 'Noida', text: 'Did a Jaipur trip with family in an Innova. Driver was knowledgeable about routes and very helpful. Pricing was also very fair compared to others.', rating: 5 },
 ];
 
+const NAV_LINKS = [
+  { href: '#home', label: 'Home' },
+  { href: '#services', label: 'Services' },
+  { href: '#fleet', label: 'Car Fleet' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact' },
+];
+
 export default function App() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [bookedName, setBookedName] = useState('');
   const [waLink, setWaLink] = useState('');
   const [waOpened, setWaOpened] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('rtts-theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('rtts-theme', theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme(t => (t === 'dark' ? 'light' : 'dark'));
+  }
+
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 900) setMenuOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // When the mobile dropdown is open, closing it changes the page layout
+  // (removes its height), so the browser's native anchor-jump — measured
+  // before that collapse — lands short. Close first, then scroll once the
+  // collapsed layout has painted.
+  function navTo(e, href) {
+    if (!menuOpen) return; // desktop: let the normal anchor + CSS scroll-margin handle it
+    e.preventDefault();
+    setMenuOpen(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
 
   function handleSuccess(name, url = '', opened = true) {
     setBookedName(name);
@@ -58,7 +102,20 @@ export default function App() {
               <span><i className="fas fa-envelope"></i>{COMPANY.email}</span>
             </div>
             <div className="header-top-right">
-              <a href={COMPANY.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+              <button
+                type="button"
+                className="theme-toggle"
+                onClick={toggleTheme}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                <span className="theme-toggle-track">
+                  <span className="theme-toggle-thumb">
+                    <i className={theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun'}></i>
+                  </span>
+                </span>
+              </button>
+              <a href={COMPANY.instagram} className="header-ig-link" target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
             </div>
           </div>
         </div>
@@ -71,15 +128,22 @@ export default function App() {
             </div>
           </a>
           <nav>
-            <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#services">Services</a></li>
-              <li><a href="#fleet">Car Fleet</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="#booking" className="nav-cta">Book Now</a></li>
+            <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
+              {NAV_LINKS.map(l => (
+                <li key={l.href}><a href={l.href} onClick={(e) => navTo(e, l.href)}>{l.label}</a></li>
+              ))}
+              <li><a href="#booking" className="nav-cta" onClick={(e) => navTo(e, '#booking')}>Book Now</a></li>
             </ul>
           </nav>
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(o => !o)}
+          >
+            <i className={menuOpen ? 'fas fa-times' : 'fas fa-bars'}></i>
+          </button>
         </div>
       </header>
 
@@ -89,10 +153,10 @@ export default function App() {
         <div className="hero-inner">
           <div className="hero-content">
             <div className="hero-badge">
-              <i className="fas fa-star"></i> Trusted by 5000+ Customers in Delhi
+              <i className="fas fa-star"></i> Trusted by 5000+ Customers in Delhi NCR
             </div>
             <h1>
-              Travel Delhi &<br />
+              Travel Delhi NCR &<br />
               Beyond with <span>Comfort</span>
             </h1>
             <p>
@@ -158,7 +222,7 @@ export default function App() {
           <div className="why-grid">
             <div className="why-text">
               <span className="label" style={{ color: 'var(--gold)', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Why Choose Us</span>
-              <h2>Delhi's Most Reliable<br />Cab Service</h2>
+              <h2>Delhi NCR's Most Reliable<br />Cab Service</h2>
               <p>We started with a single cab and a promise to our first customer — always be on time. Today we operate a fleet of 50+ vehicles across Delhi NCR with the same commitment to reliability and comfort.</p>
               <ul className="features-list">
                 {[
@@ -187,7 +251,7 @@ export default function App() {
               </div>
               <div className="counter-card">
                 <div className="counter-num">20+</div>
-                <div className="counter-label">Years in Delhi</div>
+                <div className="counter-label">Years in Delhi NCR</div>
               </div>
               <div className="counter-card" style={{ background: 'var(--gold)', color: 'var(--navy)' }}>
                 <div className="counter-num">24x7</div>
@@ -204,7 +268,7 @@ export default function App() {
           <div className="section-title">
             <span className="label">Our Vehicles</span>
             <h2>Choose Your Car</h2>
-            <p>From comfortable sedans to a premium XUV / Innova Crysta — we have the right vehicle for every group size and trip type.</p>
+            <p>From comfortable sedans to a premium Innova Crysta — we have the right vehicle for every group size and trip type.</p>
           </div>
           <div className="fleet-grid">
             {FLEET.map(car => (
@@ -305,10 +369,7 @@ export default function App() {
                 <div className="logo-tagline">{COMPANY.tagline}</div>
               </div>
             </a>
-            <p>Our ambitious venture “Ritu Tourist Taxi Service (RTTS)” is a professionally managed transportation company dedicated to taking care of its esteemed clients. Based in Gurgaon, Haryana, we provide reliable and comfortable transportation solutions across Gurgaon, Delhi NCR and other locations on request.
-Ritu Tourist Taxi Service is pleased to introduce itself as a Total Transportation Solution Company in the field of corporate taxi rental and travel services. We are capable of handling small to large-scale transportation requirements for BPOs, KPOs, Call Centers, MNCs and other corporate organizations, in accordance with their operational requirements and service standards.
-With a focus on safety, punctuality, comfort and professional service, RTTS provides solutions including corporate employee transportation, airport transfers, local and outstation taxi services, hotel transfers, business travel and long-term corporate car rental services.
-Our commitment is simple — “Your Journey, Our Responsibility.”</p>
+            <p>Ritu Tourist Taxi Service (RTTS) is a Gurgaon-based taxi and corporate travel company serving Delhi NCR. We handle airport transfers, local and outstation trips, hotel transfers, and corporate transportation for businesses of every size. Our commitment is simple — “Your Journey, Our Responsibility.”</p>
             <div className="footer-socials">
               <a href={COMPANY.instagram} target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
             </div>
