@@ -998,7 +998,8 @@ footer { border-top: 3px solid var(--gold); }
   font-weight: 600;
   color: var(--text);
   margin-bottom: 4px;
-  word-break: break-all;
+  /* word-break: break-all; */
+    overflow-wrap: break-word;
 }
 .cac-note {
   font-size: 12px;
@@ -1092,7 +1093,9 @@ footer { border-top: 3px solid var(--gold); }
   .fleet-poster { height: 170px; }
   .counter-card { padding: 20px; }
   .counter-num { font-size: 32px; }
-  .contact-cards-row { grid-template-columns: 1fr 1fr; }
+  /* .contact-cards-row { grid-template-columns: 1fr 1fr; */
+    .contact-cards-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+                     }
 }
 
 /* Short / landscape viewports (common on Android in landscape) */
