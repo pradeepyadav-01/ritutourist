@@ -342,8 +342,8 @@ export default function App() {
           <div className="contact-cards-row">
             <a href={`tel:${COMPANY.phoneTel}`} className="contact-action-card">
               <div className="cac-icon" style={{ background: 'var(--navy)' }}><i className="fas fa-phone"></i></div>
-              {/* <div className="cac-label">Call Us Now</div>
-              <div className="cac-value">{COMPANY.phone}</div> */}
+              <div className="cac-label">Call Us Now</div>
+              {/* <div className="cac-value">{COMPANY.phone}</div> */}
               <div className="cac-value"><PhoneLines phone={COMPANY.phone} /></div>
               <div className="cac-note">Available 24x7</div>
             </a>
