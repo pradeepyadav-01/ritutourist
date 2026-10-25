@@ -26,6 +26,17 @@ const TESTIMONIALS = [
   { name: 'Amit Verma', location: 'Noida', text: 'Did a Jaipur trip with family in an Innova. Driver was knowledgeable about routes and very helpful. Pricing was also very fair compared to others.', rating: 5 },
 ];
 
+function PhoneLines({ phone }) {
+  const numbers = phone.split(',').map(n => n.trim()).filter(Boolean);
+  return numbers.map((n, i) => (
+    <span className="cac-phone-line" key={n}>
+      {i > 0 && <br />}
+      {n}
+    </span>
+  ));
+} 
+//new line
+
 const NAV_LINKS = [
   { href: '#home', label: 'Home' },
   { href: '#services', label: 'Services' },
@@ -331,8 +342,9 @@ export default function App() {
           <div className="contact-cards-row">
             <a href={`tel:${COMPANY.phoneTel}`} className="contact-action-card">
               <div className="cac-icon" style={{ background: 'var(--navy)' }}><i className="fas fa-phone"></i></div>
-              <div className="cac-label">Call Us Now</div>
-              <div className="cac-value">{COMPANY.phone}</div>
+              {/* <div className="cac-label">Call Us Now</div>
+              <div className="cac-value">{COMPANY.phone}</div> */}
+              <div className="cac-value"><PhoneLines phone={COMPANY.phone} /></div>
               <div className="cac-note">Available 24x7</div>
             </a>
             <a href={`https://wa.me/${COMPANY.whatsapp}`} className="contact-action-card" target="_blank" rel="noreferrer">
@@ -396,7 +408,8 @@ export default function App() {
           <div className="footer-col">
             <h4>Contact</h4>
             <p className="footer-address">RE-307, Ridgewood Estate, DLF phase IV, Gurgaon, Haryana</p>
-            <div className="footer-contact-item"><i className="fas fa-phone"></i><span>{COMPANY.phone}</span></div>
+            {/* <div className="footer-contact-item"><i className="fas fa-phone"></i><span>{COMPANY.phone}</span></div> */}
+            <div className="footer-contact-item"><i className="fas fa-phone"></i><span><PhoneLines phone={COMPANY.phone} /></span></div>
             <div className="footer-contact-item"><i className="fas fa-envelope"></i><span>{COMPANY.email}</span></div>
           </div>
         </div>
