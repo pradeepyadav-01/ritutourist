@@ -349,8 +349,10 @@ export default function App() {
             </a>
             <a href={`https://wa.me/${COMPANY.whatsapp}`} className="contact-action-card" target="_blank" rel="noreferrer">
               <div className="cac-icon" style={{ background: '#25d366' }}><i className="fab fa-whatsapp"></i></div>
-              <div className="cac-label">WhatsApp</div>
-              <div className="cac-value">{COMPANY.phone}</div>
+              {/* <div className="cac-label">WhatsApp</div>
+              <div className="cac-value">{COMPANY.phone}</div> */}
+                            <div className="cac-label">WhatsApp</div>
+              <div className="cac-value"><PhoneLines phone={COMPANY.phone} /></div>
               <div className="cac-note">Instant reply</div>
             </a>
             <a href={`mailto:${COMPANY.email}`} className="contact-action-card">
